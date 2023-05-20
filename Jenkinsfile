@@ -1,5 +1,9 @@
 pipeline {
   agent any
+  
+  environment {
+      DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+  }
 
   stages {
     stage('Build') {
@@ -15,7 +19,7 @@ pipeline {
     }
     stage('Deploy') {
       steps {
-        sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER -p $DOCKER_PASSWORD'
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_USR --password-stdin'
         sh 'docker push bmudasir/docker_bflask_image'
         }
       }
