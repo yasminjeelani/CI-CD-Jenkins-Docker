@@ -15,14 +15,15 @@ pipeline {
     }
     stage('Deploy') {
       steps {
-          sh 'docker push bmudasir/docker_bflask_image'
+        sh "echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin docker.io"
+        sh 'docker push bmudasir/docker_bflask_image'
         }
       }
     }
-  }
   post {
     always {
       sh 'docker logout'
     }
   }
 }
+
