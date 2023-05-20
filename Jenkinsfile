@@ -15,7 +15,7 @@ pipeline {
     }
     stage('Deploy') {
       steps {
-        sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
+        sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --p-stdin'
         sh 'docker push bmudasir/docker_bflask_image'
         }
       }
